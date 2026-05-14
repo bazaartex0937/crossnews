@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>跨境资讯 · CrossBorder News</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f0f2f5;--card:#fff;--bd:#e5e7eb;--tx:#111827;--tx2:#6b7280;--acc:#1d4ed8;--tag:#eff6ff;--nav:#fff;--inp:#f9fafb;--inpbd:#d1d5db}
+[data-dark]{--bg:#0d1117;--card:#161b22;--bd:#30363d;--tx:#e6edf3;--tx2:#8b949e;--acc:#58a6ff;--tag:rgba(88,166,255,.1);--nav:#161b22;--inp:#1c2128;--inpbd:#3d444d}
+html{font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;color:var(--tx);background:var(--bg)}
+a{text-decoration:none;color:inherit}
+
+/* ── HEADER ── */
+header{background:var(--nav);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:99}
+.hdr{max-width:1180px;margin:auto;padding:10px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:9px;flex-shrink:0;margin-right:4px}
+.logo-icon{width:34px;height:34px;background:linear-gradient(135deg,#1d4ed8,#7c3aed);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-name{font-size:15px;font-weight:800;letter-spacing:.3px}
+.logo-sub{font-size:10px;color:var(--tx2)}
+.search{flex:1;min-width:140px;position:relative}
+.search input{width:100%;padding:8px 12px 8px 32px;border:1px solid var(--inpbd);border-radius:20px;background:var(--inp);color:var(--tx);font-size:13px;font-family:inherit;outline:none;transition:border .2s}
+.search input:focus{border-color:var(--acc)}
+.search::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none}
+.hdr-r{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.upd{font-size:11px;color:var(--tx2);white-space:nowrap}
+.hbtn{background:var(--inp);border:1px solid var(--inpbd);color:var(--tx);padding:6px 11px;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;gap:4px;font-family:inherit;transition:border-color .2s}
+.hbtn:hover{border-color:var(--acc);color:var(--acc)}
+.spin svg{animation:rot 1s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+/* ── TABS ── */
+.tabs-wrap{background:var(--nav);border-bottom:1px solid var(--bd)}
+.tabs{max-width:1180px;margin:auto;padding:0 18px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 16px;font-size:13px;color:var(--tx2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .18s;font-weight:500;flex-shrink:0}
+.tab.on{color:var(--acc);border-bottom-color:var(--acc)}
+.tab:hover{color:var(--tx)}
+
+/* ── SOURCES BAR ── */
+.srcs{max-width:1180px;margin:0 auto;padding:12px 18px;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.srcs-lbl{font-size:11px;color:var(--tx2);margin-right:2px}
+.spill{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;border:1px solid var(--bd);font-size:11px;cursor:pointer;background:var(--card);transition:all .18s;color:var(--tx2);font-weight:500;user-select:none}
+.spill:hover,.spill.on{border-color:var(--acc);background:var(--tag);color:var(--acc)}
+.sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* ── MAIN ── */
+main{max-width:1180px;margin:0 auto;padding:18px}
+
+/* stats */
+.stats{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:9px 16px;display:flex;align-items:center;gap:8px}
+.sn{font-size:19px;font-weight:700;color:var(--acc)}
+.sl{font-size:11px;color:var(--tx2)}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.09)}
+.cimg{height:128px;overflow:hidden;position:relative;background:var(--bd);flex-shrink:0}
+.cimg img{width:100%;height:100%;object-fit:cover}
+.ciph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:38px;background:linear-gradient(135deg,var(--tag),var(--inp))}
+.cbody{padding:13px;flex:1;display:flex;flex-direction:column;gap:7px}
+.ctop{display:flex;align-items:center;justify-content:space-between;gap:5px;flex-wrap:wrap}
+.sbadge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.2px}
+.ctag{font-size:10px;color:var(--tx2);background:var(--inp);padding:2px 6px;border-radius:3px}
+.card h3{font-size:13px;font-weight:600;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;line-clamp:3}
+.card h3 a:hover{color:var(--acc)}
+.card p{font-size:12px;color:var(--tx2);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1;line-clamp:2}
+.cfoot{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--bd);font-size:11px;color:var(--tx2)}
+.cfoot a{color:var(--acc);font-weight:500}
+.cfoot a:hover{text-decoration:underline}
+
+/* skeleton */
+.skel{background:var(--card);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.skel-i{height:128px;background:linear-gradient(90deg,var(--bd) 25%,var(--inp) 50%,var(--bd) 75%);background-size:200%;animation:sh 1.4s infinite}
+.skel-b{padding:13px;display:flex;flex-direction:column;gap:8px}
+.skel-l{height:12px;border-radius:4px;background:linear-gradient(90deg,var(--bd) 25%,var(--inp) 50%,var(--bd) 75%);background-size:200%;animation:sh 1.4s infinite}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* empty */
+.empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--tx2)}
+.empty-ico{font-size:48px;margin-bottom:12px}
+
+/* toast */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#dc2626;color:#fff;padding:9px 20px;border-radius:6px;font-size:12px;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+
+/* footer */
+footer{max-width:1180px;margin:14px auto 0;padding:14px 18px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--tx2)}
+footer a{color:var(--acc)}
+</style>
+</head>
+<body>
+
+<header>
+<div class="hdr">
+  <div class="logo">
+    <div class="logo-icon">🌏</div>
+    <div>
+      <div class="logo-name">跨境资讯 CrossNews</div>
+      <div class="logo-sub">跨境电商 · 国际贸易 · 物流 · 实时聚合</div>
+    </div>
+  </div>
+  <div class="search"><input type="text" id="q" placeholder="搜索新闻 / Search news..."/></div>
+  <div class="hdr-r">
+    <span class="upd" id="upd">--</span>
+    <button class="hbtn spin" id="refbtn" title="刷新">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      刷新
+    </button>
+    <button class="hbtn" id="darkbtn">🌙</button>
+  </div>
+</div>
+<div class="tabs-wrap">
+  <div class="tabs" id="tabs">
+    <div class="tab on" data-c="all">📋 全部 All</div>
+    <div class="tab" data-c="ecom">🛒 跨境电商</div>
+    <div class="tab" data-c="trade">🌐 国际贸易</div>
+    <div class="tab" data-c="logi">🚢 物流供应链</div>
+  </div>
+</div>
+</header>
+
+<div class="srcs" id="srcs"></div>
+
+<main>
+  <div class="stats" id="stats"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <span>数据来源：公开 RSS 订阅 · 通过 <a href="https://rss2json.com" target="_blank">rss2json.com</a> 免费聚合 · 每30分钟自动刷新</span>
+  <span>💡 将此文件另存为 <b>index.html</b> 即可部署到 <a href="https://pages.github.com" target="_blank">GitHub Pages</a></span>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API='https://api.rss2json.com/v1/api.json';
+
+const SRCS=[
+  {id:'reuters', name:'Reuters',      zh:'路透社',    url:'https://feeds.reuters.com/reuters/businessNews',              cat:'trade', color:'#e05c00', ico:'📰'},
+  {id:'bbc',     name:'BBC Business', zh:'BBC商业',   url:'https://feeds.bbci.co.uk/news/business/rss.xml',             cat:'trade', color:'#c41e3a', ico:'🌐'},
+  {id:'scmp',    name:'SCMP',         zh:'南华早报',  url:'https://www.scmp.com/rss/91/feed',                           cat:'trade', color:'#a00000', ico:'🗞️'},
+  {id:'pecom',   name:'Prac.Ecom',    zh:'实用电商',  url:'https://www.practicalecommerce.com/feed',                    cat:'ecom',  color:'#16a34a', ico:'🛒'},
+  {id:'mcm',     name:'MCM',          zh:'多渠道商',  url:'https://multichannelmerchant.com/feed/',                     cat:'ecom',  color:'#0891b2', ico:'📦'},
+  {id:'loadstar',name:'Loadstar',     zh:'货运之星',  url:'https://theloadstar.com/feed/',                              cat:'logi',  color:'#2563eb', ico:'🚢'},
+  {id:'fw',      name:'FreightWaves', zh:'物流波动',  url:'https://www.freightwaves.com/news/feed',                     cat:'logi',  color:'#7c3aed', ico:'✈️'},
+];
+
+const CAT={all:'全部',ecom:'跨境电商',trade:'国际贸易',logi:'物流供应链'};
+const CICO={ecom:'🛒',trade:'🌐',logi:'🚢'};
+
+let items=[],cat='all',src=null,q='',dark=false;
+
+const $=id=>document.getElementById(id);
+
+function srcOf(id){return SRCS.find(s=>s.id===id)}
+
+function timeAgo(str){
+  try{
+    const d=new Date(str),diff=Math.floor((Date.now()-d)/60000);
+    if(diff<1)return '刚刚';
+    if(diff<60)return diff+'分钟前';
+    if(diff<1440)return Math.floor(diff/60)+'小时前';
+    return d.toLocaleDateString('zh-CN',{month:'short',day:'numeric'});
+  }catch{return str||''}
+}
+
+function strip(html){
+  const d=document.createElement('div');d.innerHTML=html||'';
+  return d.textContent.replace(/\s+/g,' ').trim().slice(0,130);
+}
+
+function renderSrcs(){
+  $('srcs').innerHTML=`<span class="srcs-lbl">来源筛选 Source:</span>`+
+    SRCS.map(s=>`<div class="spill${src===s.id?' on':''}" data-sid="${s.id}">
+      <span class="sdot" style="background:${s.color}"></span>${s.ico} ${s.zh}
+    </div>`).join('');
+  $('srcs').querySelectorAll('.spill').forEach(p=>p.onclick=()=>{
+    src=src===p.dataset.sid?null:p.dataset.sid;
+    renderSrcs();renderGrid();
+  });
+}
+
+function filtered(){
+  return items.filter(it=>{
+    if(cat!=='all'&&it.cat!==cat)return false;
+    if(src&&it.sid!==src)return false;
+    if(q&&!it.title.toLowerCase().includes(q.toLowerCase()))return false;
+    return true;
+  });
+}
+
+function renderStats(){
+  const c={ecom:0,trade:0,logi:0};
+  items.forEach(it=>c[it.cat]=(c[it.cat]||0)+1);
+  $('stats').innerHTML=`
+    <div class="stat"><span class="sn">${items.length}</span><span class="sl">📋 条新闻</span></div>
+    <div class="stat"><span class="sn">${c.ecom}</span><span class="sl">🛒 跨境电商</span></div>
+    <div class="stat"><span class="sn">${c.trade}</span><span class="sl">🌐 国际贸易</span></div>
+    <div class="stat"><span class="sn">${c.logi}</span><span class="sl">🚢 物流</span></div>`;
+}
+
+function renderGrid(){
+  const list=filtered();
+  if(!list.length){
+    $('grid').innerHTML=`<div class="empty"><div class="empty-ico">📭</div>暂无相关新闻<br><small style="margin-top:6px;display:block">No news found · 请稍后重试</small></div>`;
+    return;
+  }
+  $('grid').innerHTML=list.map(it=>{
+    const s=srcOf(it.sid);
+    const img=it.img
+      ?`<img src="${it.img}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'ciph\'>${s?.ico||'📰'}</div>'">`
+      :`<div class="ciph">${s?.ico||'📰'}</div>`;
+    return `<div class="card">
+      <div class="cimg">${img}</div>
+      <div class="cbody">
+        <div class="ctop">
+          <span class="sbadge" style="background:${s?.color||'#555'}">${s?.ico||''} ${s?.zh||''}</span>
+          <span class="ctag">${CICO[it.cat]||''} ${CAT[it.cat]||it.cat}</span>
+        </div>
+        <h3><a href="${it.link}" target="_blank" rel="noopener">${it.title}</a></h3>
+        <p>${it.desc}</p>
+        <div class="cfoot">
+          <span>🕐 ${timeAgo(it.date)}</span>
+          <a href="${it.link}" target="_blank" rel="noopener">阅读原文 →</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function skeleton(){
+  $('grid').innerHTML=Array(6).fill(0).map(()=>`
+    <div class="skel"><div class="skel-i"></div>
+    <div class="skel-b">
+      <div class="skel-l" style="width:55%"></div>
+      <div class="skel-l" style="width:90%"></div>
+      <div class="skel-l" style="width:75%"></div>
+      <div class="skel-l" style="width:38%;margin-top:4px"></div>
+    </div></div>`).join('');
+}
+
+async function fetchOne(s){
+  const r=await fetch(`${API}?rss_url=${encodeURIComponent(s.url)}&count=10`);
+  if(!r.ok)throw new Error(r.status);
+  const d=await r.json();
+  if(d.status!=='ok')throw new Error(d.message);
+  return (d.items||[]).map(it=>({
+    sid:s.id, cat:s.cat,
+    title:(it.title||'').trim(),
+    link:it.link||'#',
+    desc:strip(it.description||it.content||''),
+    date:it.pubDate||'',
+    img:it.thumbnail||it.enclosure?.link||null
+  })).filter(it=>it.title);
+}
+
+async function loadAll(){
+  const btn=$('refbtn');
+  btn.classList.add('spin');
+  skeleton();
+  items=[];
+  const res=await Promise.allSettled(SRCS.map(s=>fetchOne(s)));
+  let errs=0;
+  res.forEach((r,i)=>{
+    if(r.status==='fulfilled')items.push(...r.value);
+    else{console.warn(SRCS[i].name,r.reason);errs++;}
+  });
+  items.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  btn.classList.remove('spin');
+  const now=new Date();
+  $('upd').textContent=`更新 ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  if(!items.length) toast('⚠️ 所有来源加载失败，请检查网络');
+  else if(errs) toast(`⚠️ ${errs}个来源失败，已显示其余内容`);
+  renderStats();renderGrid();
+}
+
+function toast(msg){
+  const t=$('toast');t.textContent=msg;t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),3500);
+}
+
+// Events
+$('tabs').querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  cat=t.dataset.c;
+  $('tabs').querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+  renderGrid();
+});
+$('refbtn').onclick=loadAll;
+$('q').oninput=e=>{q=e.target.value;renderGrid();};
+$('darkbtn').onclick=()=>{
+  dark=!dark;
+  document.documentElement.toggleAttribute('data-dark',dark);
+  $('darkbtn').textContent=dark?'☀️':'🌙';
+};
+
+// Init
+renderSrcs();
+loadAll();
+setInterval(loadAll,30*60*1000);
+</script>
+</body>
+</html>
